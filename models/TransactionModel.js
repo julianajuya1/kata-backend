@@ -34,10 +34,9 @@ exports.getMaximumAmount = () => {
 // Transacciones por día y cliente
 exports.getDayCostumer = () => {
     return db.query(`
-        SELECT t.transaction_date, c.client_name AS cliente, SUM(t.amount) AS total_dispersed
+        SELECT t.transaction_date, SUM(t.amount) AS total_dispersed
         FROM transactions t
-        JOIN customers c ON t.customer_id = c.id
-        GROUP BY t.transaction_date, c.id
+        GROUP BY t.transaction_date
         ORDER BY t.transaction_date, total_dispersed DESC;
     `); 
 }
